@@ -30,7 +30,7 @@ class ApiService {
     return null;
   }
 
-  static void createBugTicket({
+  static Future<bool?> createBugTicket({
     required CustomException exception,
     required Token token,
   }) async {
@@ -48,7 +48,8 @@ class ApiService {
       },
     };
 
-    await _dioClient.post<Map<String, dynamic>?>(
+    Response<Map<String, dynamic>?> response =
+        await _dioClient.post<Map<String, dynamic>?>(
       '/create_ticket',
       data: data,
       options: Options(
@@ -57,5 +58,11 @@ class ApiService {
         },
       ),
     );
+
+    if (response.data != null) {
+      return response.data?['success'] as bool;
+    }
+
+    return null;
   }
 }

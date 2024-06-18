@@ -1,6 +1,6 @@
 name: support_zapper
 description: "This package will create the tickets in ADO for all the issued happening in the Application."
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/Gokulnath7598
 repository: https://github.com/Gokulnath7598/support_zapper
 

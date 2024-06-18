@@ -4,3 +4,5 @@
 * Formatting
 ## [0.0.3] - 18/06/2024
 * dart version updated to support lower version flutter application
+## [0.0.4] - 19/06/2024
+* APIs handled efficiently

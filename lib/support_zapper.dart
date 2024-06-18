@@ -119,39 +119,71 @@ class ExceptionHandler {
       }
 
       if (_token != null) {
-        ApiService.createBugTicket(
-          exception: CustomException(
-            type: exceptionToBeThrown,
-            statusCode: statusCode,
-            exceptionMessage: exceptionMessage,
-            response: response,
-            request: request,
-            deviceInfo: _deviceInfo,
-            userInfo: _userDetails ?? {},
-          ),
-          token: _token!,
-        );
-        debugPrint(
-          "\n*** 🐞 SUPPORT ZAPPER TICKET Logged Successfully 🐞 ***\n",
-        );
+        try {
+          bool? success = await ApiService.createBugTicket(
+            exception: CustomException(
+              type: exceptionToBeThrown,
+              statusCode: statusCode,
+              exceptionMessage: exceptionMessage,
+              response: response,
+              request: request,
+              deviceInfo: _deviceInfo,
+              userInfo: _userDetails ?? {},
+            ),
+            token: _token!,
+          );
+          if (success ?? false) {
+            debugPrint(
+              "\n*** 🐞 SUPPORT ZAPPER TICKET Logged Successfully 🐞 ***\n",
+            );
+          } else {
+            debugPrint(
+              "\n*** 🚫 SUPPORT ZAPPER Ticket Logging failed 💀 ***\n",
+            );
+          }
+        } on DioException catch (e) {
+          debugPrint(
+            "\n*** 🚫 SUPPORT ZAPPER Ticket Logging failed $e 💀 ***\n",
+          );
+        } catch (e) {
+          debugPrint(
+            "\n*** 🚫 SUPPORT ZAPPER Ticket Logging failed $e 💀 ***\n",
+          );
+        }
       }
     };
   }
 
   static void createTicket({required String message}) async {
     if (_token != null) {
-      debugPrint(
-        "\n*** 🐞 SUPPORT ZAPPER Custom TICKET Logged Successfully 🐞 ***\n",
-      );
-      ApiService.createBugTicket(
-        exception: CustomException(
-          type: ExceptionType.custom,
-          exceptionMessage: message,
-          deviceInfo: _deviceInfo,
-          userInfo: _userDetails ?? {},
-        ),
-        token: _token!,
-      );
+      try {
+        bool? success = await ApiService.createBugTicket(
+          exception: CustomException(
+            type: ExceptionType.custom,
+            exceptionMessage: message,
+            deviceInfo: _deviceInfo,
+            userInfo: _userDetails ?? {},
+          ),
+          token: _token!,
+        );
+        if (success ?? false) {
+          debugPrint(
+            "\n*** 🐞 SUPPORT ZAPPER TICKET Logged Successfully 🐞 ***\n",
+          );
+        } else {
+          debugPrint(
+            "\n*** 🚫 SUPPORT ZAPPER Ticket Logging failed 💀 ***\n",
+          );
+        }
+      } on DioException catch (e) {
+        debugPrint(
+          "\n*** 🚫 SUPPORT ZAPPER Ticket Logging failed $e 💀 ***\n",
+        );
+      } catch (e) {
+        debugPrint(
+          "\n*** 🚫 SUPPORT ZAPPER Ticket Logging failed $e 💀 ***\n",
+        );
+      }
     }
   }
 }
