@@ -1,6 +1,6 @@
 name: support_zapper
 description: "This package will create the tickets in ADO for all the issued happening in the Application."
-version: 0.0.1
+version: 0.0.2
 homepage:
 
 environment:
