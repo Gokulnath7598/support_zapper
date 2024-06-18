@@ -5,10 +5,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await ExceptionHandler.initialize(
-      organization: 'veera4701',
-      project: 'SupportZapper',
-      accessToken: 'fcob4kn66ggtwm4rviplflj2gfu7nfq4czexb54ckfehgcqsh3vq',
-      userDetails: {'name': 'Gokulnath'});
+      organization: 'your_organization',
+      project: 'your_project',
+      accessToken: 'your_token',
+      userDetails: {'name': 'test'});
 
   runApp(const MyApp());
 }
