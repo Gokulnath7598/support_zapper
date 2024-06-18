@@ -106,6 +106,8 @@ class ExceptionHandler {
           } else {
             exceptionToBeThrown = ExceptionType.unKnownDioException;
           }
+        } else {
+          exceptionMessage = exception.toString();
         }
       } else if (exception is FlutterError) {
         if (exception.message.toLowerCase().contains(
@@ -113,6 +115,8 @@ class ExceptionHandler {
             )) {
           exceptionToBeThrown = ExceptionType.renderFlexOverflow;
           exceptionMessage = exception.message;
+        } else {
+          exceptionMessage = exception.toString();
         }
       } else {
         exceptionMessage = exception.toString();

@@ -6,3 +6,5 @@
 * dart version updated to support lower version flutter application
 ## [0.0.4] - 19/06/2024
 * APIs handled efficiently
+## [0.0.5] - 19/06/2024
+* Bug Titles handled
