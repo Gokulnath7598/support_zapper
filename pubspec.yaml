@@ -1,5 +1,5 @@
 name: support_zapper
-description: "A new Flutter package project."
+description: "This package will create the tickets in ADO for all the issued happening in the Application."
 version: 0.0.1
 homepage:
 
