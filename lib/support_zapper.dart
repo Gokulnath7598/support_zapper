@@ -22,38 +22,50 @@ class ExceptionHandler {
       required String accessToken,
       required Map<String, dynamic> userDetails}) async {
     if (shouldCreateTicketsForExceptions) {
-      ProjectDetails? projectDetails = ProjectDetails(
-        versionControl: VersionControl.azureDevops,
-        organization: organization,
-        project: project,
-        token: accessToken,
-      );
-      _userDetails = userDetails;
-      _token = await ApiService.authorizeToProject(projectDetails);
-      if (_token == null) {
+      try {
+        ProjectDetails? projectDetails = ProjectDetails(
+          versionControl: VersionControl.azureDevops,
+          organization: organization,
+          project: project,
+          token: accessToken,
+        );
+        _userDetails = userDetails;
+        _token = await ApiService.authorizeToProject(projectDetails);
+        if (_token == null) {
+          debugPrint(
+            "\n*** 🚫 PROJECT DETAILS IS SUSPICIOUS, SUPPORT ZAPPER EXCEPTION LISTENER IS NOT INITIALIZED 💀 ***\n",
+          );
+          return;
+        } else {
+          if (Platform.isAndroid) {
+            AndroidDeviceInfo info = await DeviceInfoPlugin().androidInfo;
+            _deviceInfo
+              ..id = info.id
+              ..name = '${info.brand} ${info.model}'
+              ..version = info.version.release
+              ..type = 'Android';
+          } else if (Platform.isIOS) {
+            IosDeviceInfo info = await DeviceInfoPlugin().iosInfo;
+            _deviceInfo
+              ..name = '${info.name} ${info.model}'
+              ..version = info.systemVersion
+              ..type = 'IOS';
+          }
+          debugPrint(
+            "\n*** ✅ AUTHORIZATION SUCCESSFUL, SUPPORT ZAPPER EXCEPTION LISTENER ENABLED 😎 ***\n",
+          );
+          _initializeExceptionHandler();
+        }
+      } on DioException catch (e) {
         debugPrint(
-          "\n*** 🚫 PROJECT DETAILS IS SUSPICIOUS, SUPPORT ZAPPER EXCEPTION LISTENER IS NOT INITIALIZED 💀 ***\n",
+          "\n*** 🚫 SUPPORT ZAPPER Initiation failed $e 💀 ***\n",
         );
         return;
-      } else {
-        if (Platform.isAndroid) {
-          AndroidDeviceInfo info = await DeviceInfoPlugin().androidInfo;
-          _deviceInfo
-            ..id = info.id
-            ..name = '${info.brand} ${info.model}'
-            ..version = info.version.release
-            ..type = 'Android';
-        } else if (Platform.isIOS) {
-          IosDeviceInfo info = await DeviceInfoPlugin().iosInfo;
-          _deviceInfo
-            ..name = '${info.name} ${info.model}'
-            ..version = info.systemVersion
-            ..type = 'IOS';
-        }
+      } catch (e) {
         debugPrint(
-          "\n*** ✅ AUTHORIZATION SUCCESSFUL, SUPPORT ZAPPER EXCEPTION LISTENER ENABLED 😎 ***\n",
+          "\n*** 🚫 SUPPORT ZAPPER Initiation failed $e 💀 ***\n",
         );
-        _initializeExceptionHandler();
+        return;
       }
     }
   }
