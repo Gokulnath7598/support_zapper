@@ -15,15 +15,13 @@ class ExceptionHandler {
   static final DeviceInfo _deviceInfo = DeviceInfo();
   static Map<String, dynamic>? _userDetails;
 
-  static Future<void> initialize({
-    bool shouldCreateTicketsForExceptions = kDebugMode,
-    required String organization,
-    required String project,
-    required String accessToken,
-    required Map<String, dynamic> userDetails
-  }) async {
+  static Future<void> initialize(
+      {bool shouldCreateTicketsForExceptions = kDebugMode,
+      required String organization,
+      required String project,
+      required String accessToken,
+      required Map<String, dynamic> userDetails}) async {
     if (shouldCreateTicketsForExceptions) {
-
       ProjectDetails? projectDetails = ProjectDetails(
         versionControl: VersionControl.azureDevops,
         organization: organization,
@@ -99,8 +97,8 @@ class ExceptionHandler {
         }
       } else if (exception is FlutterError) {
         if (exception.message.toLowerCase().contains(
-          'renderflex overflowed by',
-        )) {
+              'renderflex overflowed by',
+            )) {
           exceptionToBeThrown = ExceptionType.renderFlexOverflow;
           exceptionMessage = exception.message;
         }
@@ -129,7 +127,6 @@ class ExceptionHandler {
   }
 
   static void createTicket({required String message}) async {
-
     if (_token != null) {
       debugPrint(
         "\n*** 🐞 SUPPORT ZAPPER Custom TICKET Logged Successfully 🐞 ***\n",

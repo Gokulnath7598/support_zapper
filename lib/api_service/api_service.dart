@@ -6,8 +6,7 @@ import '../model/token.dart';
 
 class ApiService {
   static final Dio _dioClient = Dio()
-    ..options.baseUrl =
-        "https://support-zapper.onrender.com/api/v1";
+    ..options.baseUrl = "https://support-zapper.onrender.com/api/v1";
 
   static Future<Token?> authorizeToProject(ProjectDetails project) async {
     final Map<String, dynamic> data = {
@@ -49,8 +48,7 @@ class ApiService {
       },
     };
 
-    await _dioClient
-        .post<Map<String, dynamic>?>(
+    await _dioClient.post<Map<String, dynamic>?>(
       '/create_ticket',
       data: data,
       options: Options(

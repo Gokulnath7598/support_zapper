@@ -1,16 +1,15 @@
-
 import 'device_info.dart';
 import 'exception_type.dart';
 
 class CustomException implements Exception {
   CustomException({
-    required this.type,           // Type of Exception
-    String? exceptionMessage,     // Exception's Message/Description
-    required this.deviceInfo,     // Device's Info
-    required this.userInfo,       // User's Info
-    this.response,                // Api Response, if Exception is a DioException
-    this.request,                 // Api Request, if Exception is a DioException
-    this.statusCode,              // Api Response code, if Exception is a DioException
+    required this.type, // Type of Exception
+    String? exceptionMessage, // Exception's Message/Description
+    required this.deviceInfo, // Device's Info
+    required this.userInfo, // User's Info
+    this.response, // Api Response, if Exception is a DioException
+    this.request, // Api Request, if Exception is a DioException
+    this.statusCode, // Api Response code, if Exception is a DioException
   }) : message = (exceptionMessage != null && exceptionMessage.isNotEmpty)
             ? exceptionMessage
             : type == ExceptionType.unAuthorized
