@@ -8,3 +8,5 @@
 * APIs handled efficiently
 ## [0.0.5] - 19/06/2024
 * Bug Titles handled
+## [0.0.6] - 19/06/2024
+* ADO ID returned for Custom Tickets
