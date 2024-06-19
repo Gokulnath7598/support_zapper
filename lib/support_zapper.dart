@@ -124,7 +124,7 @@ class ExceptionHandler {
 
       if (_token != null) {
         try {
-          bool? success = await ApiService.createBugTicket(
+          int? adoId = await ApiService.createBugTicket(
             exception: CustomException(
               type: exceptionToBeThrown,
               statusCode: statusCode,
@@ -136,9 +136,9 @@ class ExceptionHandler {
             ),
             token: _token!,
           );
-          if (success ?? false) {
+          if (adoId != null) {
             debugPrint(
-              "\n*** 🐞 SUPPORT ZAPPER TICKET Logged Successfully 🐞 ***\n",
+              "\n*** 🐞 SUPPORT ZAPPER TICKET Logged Successfully $adoId 🐞 ***\n",
             );
           } else {
             debugPrint(
@@ -158,10 +158,10 @@ class ExceptionHandler {
     };
   }
 
-  static void createTicket({required String message}) async {
+  static Future<int?> createTicket({required String message}) async {
     if (_token != null) {
       try {
-        bool? success = await ApiService.createBugTicket(
+        int? adoId = await ApiService.createBugTicket(
           exception: CustomException(
             type: ExceptionType.custom,
             exceptionMessage: message,
@@ -170,10 +170,11 @@ class ExceptionHandler {
           ),
           token: _token!,
         );
-        if (success ?? false) {
+        if (adoId != null) {
           debugPrint(
-            "\n*** 🐞 SUPPORT ZAPPER TICKET Logged Successfully 🐞 ***\n",
+            "\n*** 🐞 SUPPORT ZAPPER TICKET Logged Successfully ID $adoId 🐞 ***\n",
           );
+          return adoId;
         } else {
           debugPrint(
             "\n*** 🚫 SUPPORT ZAPPER Ticket Logging failed 💀 ***\n",
@@ -189,5 +190,6 @@ class ExceptionHandler {
         );
       }
     }
+    return null;
   }
 }

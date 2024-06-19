@@ -41,8 +41,9 @@ class MyHomePage extends StatelessWidget {
         children: [
           Center(
             child: ElevatedButton(
-              onPressed: () {
-                ExceptionHandler.createTicket(message: 'Test Custom Ticket');
+              onPressed: () async {
+                int? id = await ExceptionHandler.createTicket(message: 'Test Custom Ticket New');
+                debugPrint('In UI $id');
               },
               child: const Text(
                 'Create Custom Ticket',

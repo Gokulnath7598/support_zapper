@@ -30,7 +30,7 @@ class ApiService {
     return null;
   }
 
-  static Future<bool?> createBugTicket({
+  static Future<int?> createBugTicket({
     required CustomException exception,
     required Token token,
   }) async {
@@ -60,7 +60,7 @@ class ApiService {
     );
 
     if (response.data != null) {
-      return response.data?['success'] as bool;
+      return response.data?['ado_id'] as int;
     }
 
     return null;
