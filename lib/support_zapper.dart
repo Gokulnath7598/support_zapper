@@ -79,6 +79,7 @@ class ExceptionHandler {
       dynamic response;
       dynamic request;
       String? exceptionMessage;
+      String? exceptionPath = details.stack.toString().split('\n').first;
       if (exception is Exception) {
         if (exception is DioException) {
           response = exception.response?.data;
@@ -119,13 +120,16 @@ class ExceptionHandler {
           exceptionMessage = exception.toString();
         }
       } else {
+        if(exception.toString().toLowerCase().contains('null check operator used on a null value')){
+          exceptionToBeThrown = ExceptionType.nullError;
+        }
         exceptionMessage = exception.toString();
       }
-
       if (_token != null) {
         try {
           int? adoId = await ApiService.createBugTicket(
             exception: CustomException(
+              exceptionPath: exceptionPath,
               type: exceptionToBeThrown,
               statusCode: statusCode,
               exceptionMessage: exceptionMessage,

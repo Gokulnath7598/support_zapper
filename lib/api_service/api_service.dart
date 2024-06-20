@@ -38,6 +38,7 @@ class ApiService {
       "bug": {
         "message": exception.message,
         "type": exception.type.name,
+        "error_path": exception.exceptionPath,
         "error_details": {
           "status_code": exception.statusCode,
           "response": exception.response,

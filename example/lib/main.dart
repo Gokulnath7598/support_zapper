@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:support_zapper/support_zapper.dart';
+import 'error_pages.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -41,12 +43,95 @@ class MyHomePage extends StatelessWidget {
         children: [
           Center(
             child: ElevatedButton(
-              onPressed: () async {
-                int? id = await ExceptionHandler.createTicket(message: 'Test Custom Ticket New');
-                debugPrint('In UI $id');
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute<dynamic>(
+                  builder: (_) => const CustomError(),
+                ));
               },
               child: const Text(
                 'Create Custom Ticket',
+              ),
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () async {
+                Navigator.push(context, MaterialPageRoute<dynamic>(
+                  builder: (_) => const RenderError(),
+                ));
+              },
+              child: const Text(
+                'Render Issue',
+              ),
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () async {
+                Navigator.push(context, MaterialPageRoute<dynamic>(
+                  builder: (_) => const NullError(),
+                ));
+              },
+              child: const Text(
+                'Null Issue',
+              ),
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                throw DioException(
+                  requestOptions: RequestOptions(
+                    path:
+                    'https://unauthorized-exception-simulation-endpoint.com',
+                  ),
+                  response: Response(
+                    requestOptions: RequestOptions(),
+                    statusCode: 401,
+                    statusMessage: 'Unauthorized',
+                    data: {
+                      'message': 'Unauthorized',
+                    },
+                  ),
+                );
+              },
+              child: const Text(
+                '404',
+              ),
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () {
+                throw DioException(
+                  requestOptions: RequestOptions(
+                    path:
+                    'https://unauthorized-exception-simulation-endpoint.com',
+                  ),
+                  response: Response(
+                    requestOptions: RequestOptions(),
+                    statusCode: 500,
+                    statusMessage: 'Unauthorized',
+                    data: {
+                      'message': 'Unauthorized',
+                    },
+                  ),
+                );
+              },
+              child: const Text(
+                '500',
+              ),
+            ),
+          ),
+          Center(
+            child: ElevatedButton(
+              onPressed: () async {
+                Navigator.push(context, MaterialPageRoute<dynamic>(
+                  builder: (_) => const ImageURlError(),
+                ));
+              },
+              child: const Text(
+                'Image URL Error',
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 enum ExceptionType {
   notFound, // 404 Api Response
   internalServerError, // 500 Api Response
+  nullError, // 500 Api Response
   connectionTimeout, // Dio exception
   receiveTimeout, // Dio exception
   sendTimeout, // Dio exception

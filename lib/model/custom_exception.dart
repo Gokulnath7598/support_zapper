@@ -5,6 +5,7 @@ class CustomException implements Exception {
   CustomException({
     required this.type, // Type of Exception
     String? exceptionMessage, // Exception's Message/Description
+    this.exceptionPath, // Exception's file path
     required this.deviceInfo, // Device's Info
     required this.userInfo, // User's Info
     this.response, // Api Response, if Exception is a DioException
@@ -32,6 +33,7 @@ class CustomException implements Exception {
 
   final ExceptionType type;
   final String message;
+  final String? exceptionPath;
   final int? statusCode;
   final dynamic response;
   final dynamic request;
@@ -42,6 +44,7 @@ class CustomException implements Exception {
     return {
       'type': type,
       'message': message,
+      'error_path': exceptionPath ?? '',
       'status_code': statusCode,
       'response': response,
       'request': request,
