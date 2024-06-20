@@ -10,3 +10,5 @@
 * Bug Titles handled
 ## [0.0.6] - 19/06/2024
 * ADO ID returned for Custom Tickets
+## [0.0.7] - 20/06/2024
+* Error file path added
